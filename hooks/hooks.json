@@ -1,0 +1,60 @@
+{
+  "description": "Clipwise Ralph SDD - Safety Guards and Progress Tracking for Autonomous Development",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PROJECT_ROOT}/.claude/hooks/scripts/safety-guard.sh",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit|Read",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PROJECT_ROOT}/.claude/hooks/scripts/safety-guard.sh",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "WebFetch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PROJECT_ROOT}/.claude/hooks/scripts/safety-guard.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PROJECT_ROOT}/.claude/hooks/scripts/progress-tracker.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "Before stopping, you MUST complete these checks:\n\n1. **Tasks Update**: Mark ALL completed tasks as [x] in tasks.md\n\n2. **Git Status**: Check for uncommitted changes. If >3 files changed, execute atomic commit with descriptive message.\n\n3. **Promise Output** (REQUIRED for Ralph Loop):\n   - If there are MORE incomplete tasks [ ] in the current Phase → Output: <promise>CONTINUE</promise>\n   - If ALL tasks in current Phase are complete [x] → Output: <promise>PHASE COMPLETE</promise>\n   - If you cannot proceed due to an error or missing info → Output: <promise>BLOCKED: [reason]</promise>\n\n4. **Progress Summary**: Briefly list what was completed this iteration.\n\nIMPORTANT: The <promise> tag MUST be on its own line at the end of your response for the Ralph Loop to detect it."
+          }
+        ]
+      }
+    ]
+  }
+}
