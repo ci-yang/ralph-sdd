@@ -17,7 +17,7 @@
 ### 方式 1: Clone 後安裝
 
 ```bash
-git clone https://github.com/anthropics/ralph-sdd.git
+git clone https://github.com/ci-yang/ralph-sdd.git
 cd ralph-sdd
 ./install.sh /path/to/your/project
 ```
@@ -32,7 +32,7 @@ curl -fsSL https://raw.githubusercontent.com/anthropics/ralph-sdd/main/install.s
 
 ```bash
 cd your-project
-git submodule add https://github.com/anthropics/ralph-sdd.git .ralph-sdd
+git submodule add https://github.com/ci-yang/ralph-sdd.git .ralph-sdd
 ./.ralph-sdd/install.sh .
 ```
 

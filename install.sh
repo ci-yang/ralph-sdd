@@ -223,7 +223,7 @@ create_project_readme() {
 
 ---
 
-*由 [ralph-sdd](https://github.com/user/ralph-sdd) 安裝*
+*由 [ralph-sdd](https://github.com/ci-yang/ralph-sdd) 安裝*
 EOF
 
     log OK "已建立 .ralph/README.md"
